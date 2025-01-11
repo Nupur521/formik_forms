@@ -1,4 +1,5 @@
-import { useFormik } from "formik"
+import {useFormik } from "formik"
+import {Formik,Form,Field,ErrorMessage} from 'formik'
 import * as Yup from 'yup'
 
 function YoutubeForm(){
@@ -43,35 +44,32 @@ const formik =useFormik({
 
 console.log("form values are: ", formik.touched)
 return(
-    <div>
-        <form onSubmit={formik.handleSubmit}>
+    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+        <Form>
             <div style={{marginBottom: '2px'}}>
             <label htmlFor="name">
                Name:  
             </label>
-            <input type="text" name="name" id="name" 
-         {...formik.getFieldProps('name')}></input>
-             {formik.touched.name ?<div>{formik.errors.name}</div>: null}
+            <Field type="text" name="name" id="name"/>
+             <ErrorMessage name='name' component="div"/>
              </div>
              <div style={{marginBottom: '2px'}}>
             <label htmlFor="email">
                Email:
             </label>
-            <input type="email" name="email" id="email" 
-          {...formik.getFieldProps('email')}></input>
-            {formik.touched.email ? <div>{formik.errors.email}</div>: null}
+            <Field type="email" name="email" id="email"/>
+            <ErrorMessage name='email' component="div"/>
             </div>
             <div style={{marginBottom: '2px'}}>
             <label htmlFor="channel">
                Channel:
             </label>
-            <input type="text" name="channel" id="channel" 
-            {...formik.getFieldProps('channel')}></input>
-            {formik.touched.channel ? <div>{formik.errors.channel}</div>: null}
+            <Field type="text" name="channel" id="channel"/>
+            <ErrorMessage name='channel' component="div"/>
             </div>
             <button type="submit">Submit</button>
-        </form>
-    </div>
+        </Form>
+    </Formik>
 )
 }
 
